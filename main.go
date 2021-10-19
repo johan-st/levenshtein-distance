@@ -15,7 +15,6 @@ func main() {
 	if len(str1) > maxLen || len(str2) > maxLen {
 		log.Fatalf("input string length too long (max = %v)", maxLen)
 	}
-	fmt.Printf("%v", len(str1))
 	dist := levenshtein(str1, str2)
 	fmt.Println(dist)
 }
