@@ -2,21 +2,25 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/pkg/profile"
+	"log"
+	"os"
 )
 
-func main() {
-	defer profile.Start(profile.CPUProfile, profile.ProfilePath(".")).Stop()
-	for i := 0; i < 1000000; i++ {
-		levenshtein([]rune("jihgfedcba"), []rune("abcdefg"))
-	}
+const maxLen = 99
 
-	// fmt.Printf("distance was %v.\n", dist)
+func main() {
+	// defer profile.Start(profile.CPUProfile, profile.ProfilePath(".")).Stop()
+	str1 := os.Args[1]
+	str2 := os.Args[2]
+	if len(str1) > maxLen || len(str2) > maxLen {
+		log.Fatalf("input string length too long (max = %v)", maxLen)
+	}
+	fmt.Printf("%v", len(str1))
+	dist := levenshtein(str1, str2)
+	fmt.Println(dist)
 }
 
-func levenshtein(a []rune, b []rune) int {
-	// fmt.Printf("checking distance between %c and %c.\n", a, b)
+func levenshtein(a string, b string) int {
 	matrix := make([][]int, len(a)+1)
 	for i := 0; i <= len(a); i++ {
 		matrix[i] = make([]int, len(b)+1)
